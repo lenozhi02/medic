@@ -34,6 +34,8 @@ MARK = ".installed-from-medic"
 CRON_TAG = "medic-skill-sync"
 STAMP = ".last_sync"          # 节流时间戳
 THROTTLE = 6 * 3600           # 6 小时内不重复访问网络
+FETCH_TRIES = 3               # 网络抖动时重试次数（第一次常常只是卡在连 TCP）
+FETCH_BUDGET = 40             # 首次尝试的超时；后两次用 FETCH_BUDGET * 1.5
 
 
 # ---------- 基础工具 ----------
@@ -102,7 +104,23 @@ def has_remote():
 
 
 def fetch():
-    return run(["git", "fetch", "--prune", "--quiet", "origin"])
+    """拉远端。网络抖（连 github 第一次常常超时）时重试几次，别一次失败就放弃。
+
+    实测：同一台机器上，git fetch 首次可能卡在 TCP 连接 90s 超时，
+    紧接着重试 1 秒就通。所以这里默认给 3 次机会，第一次 40s、之后 60s。
+    """
+    last = (1, "未执行")
+    for i in range(FETCH_TRIES):
+        timeout = FETCH_BUDGET if i == 0 else int(FETCH_BUDGET * 1.5)
+        rc, out = run(["git", "fetch", "--prune", "--quiet", "origin"],
+                      timeout=timeout)
+        if rc == 0:
+            return rc, out
+        last = (rc, out)
+        if rc == 127:          # 没装 git，重试无意义
+            break
+        time.sleep(1)
+    return last
 
 
 def local_branch():
