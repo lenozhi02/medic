@@ -14,15 +14,21 @@ medic/
 │   ├── install_skills.py            # 接入：建软链到 ~/.codebuddy/skills/
 │   └── sync_skills.py               # 同步：pull + 刷新，6 小时节流
 └── skills/
-    └── hospital-news-digest/        # 医疗新闻搜索汇总（按日期范围+关键词出报告）
+    ├── hospital-news-digest/        # 医疗新闻搜索汇总（按日期范围+关键词出报告）
+    │   ├── SKILL.md
+    │   ├── workbuddy.json
+    │   ├── scripts/digest.py        # 单文件，仅依赖 requests
+    │   ├── scripts/sync.sh          # 同步壳：解析安装路径后调 sync_skills.py
+    │   └── cache/                   # 门户快照（官网 v49 / 日报 v43，2026-11-26）
+    └── medic-skill-setup/           # 一键接入：说「帮我安装」即自动装好
         ├── SKILL.md
-        ├── workbuddy.json
-        ├── scripts/digest.py        # 单文件，仅依赖 requests
-        ├── scripts/sync.sh          # 同步壳：解析安装路径后调 sync_skills.py
-        └── cache/                   # 门户快照（官网 v49 / 日报 v43，2026-11-26）
+        └── workbuddy.json
 ```
 
 ## 一、首次接入（每个成员做一次）
+
+**最省事的办法：对这个项目里说一句「帮我安装」，由 `medic-skill-setup` 技能自动完成下面所有步骤。**
+不想说话、想自己动手的，看下面的命令。
 
 ```bash
 git clone https://github.com/lenozhi02/medic.git
