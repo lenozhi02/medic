@@ -78,10 +78,6 @@ python3 scripts/sync_skills.py --status   # 看仓库/安装/定时状态
 cd medic && git add -A && git commit -m "更新 hospital-news-digest：xxx" && git push
 ```
 
-```bash
-git add -A && git commit -m "更新 hospital-news-digest：xxx" && git push
-```
-
 ## 三、推送权限（写代码的人需要）
 
 本仓库所有权的写入需要 GitHub 凭据，读（clone / pull）不需要。任选一种：
@@ -133,7 +129,7 @@ python3 ~/.codebuddy/skills/hospital-news-digest/scripts/digest.py parse-portal 
 ## 七、相关入口
 
 - 🚪 医疗信息监测 · 总入口：https://docs.qq.com/page/DUWJnbnViTm5JUkpC
-- 📦 技能包（网盘）：项目网盘 → `技能包/hospital-news-digest-skill-v1.1.zip`
+- 📦 技能包（网盘）：项目网盘 → `技能包/hospital-news-digest-skill-v1.2.zip`
 - 📘 项目准则：项目网盘根目录 `AGENTS.md`
 
 ## 版本
