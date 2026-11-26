@@ -1,0 +1,7 @@
+{
+  "display_name": "项目技能一键接入",
+  "display_name_en": "Project Skill Setup",
+  "description_zh": "成员说一句「帮我安装」，自动完成克隆项目共享仓库、装依赖、建软链、跑自检，无需懂 git",
+  "description_en": "One-sentence setup: clone the shared repo, install deps, link skills, run self-check",
+  "version": "1.0.0"
+}
