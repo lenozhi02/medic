@@ -1,0 +1,21 @@
+# 产出物不入库（报告归档走项目网盘）
+output/
+*/output/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# 私有配置：按项目规则留在原有位置，不入库
+mail_conf.json
+.env
+*.local.json
+
+# 编辑器 / 系统
+.DS_Store
+.idea/
+.vscode/
+*.swp
+.installed-from-medic

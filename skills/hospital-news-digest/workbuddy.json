@@ -1,0 +1,6 @@
+{
+  "display_name": "医疗新闻搜索汇总",
+  "display_name_en": "Hospital News Digest",
+  "description_zh": "按日期范围与关键词汇总医院官网新闻和公众号日报，双通道交叉核对，输出 Word 与 Markdown",
+  "description_en": "Digest hospital official-site news and WeChat daily reports by date range and keyword, cross-checked, exported to DOCX and Markdown"
+}

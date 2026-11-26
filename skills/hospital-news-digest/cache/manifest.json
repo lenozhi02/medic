@@ -1,0 +1,16 @@
+{
+  "official": {
+    "file": "portal_official_20261126-0902.json",
+    "version": 49,
+    "total_lines": 364,
+    "bytes": 285553,
+    "fetched_at": "20261126-0902"
+  },
+  "wechat": {
+    "file": "portal_wechat_20261126-0854.json",
+    "version": 43,
+    "total_lines": 152,
+    "bytes": 126605,
+    "fetched_at": "20261126-0854"
+  }
+}
