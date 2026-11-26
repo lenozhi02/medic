@@ -183,6 +183,7 @@ MGH 百度通道告警单独发 `zhijia@sipf.com.cn`。
 | COS `403 AccessDenied` / `InvalidAccessKeyId` | 签名失效 | 重新取签名后**立即** PUT，不缓存 URL |
 | 上传 URL 过期 | tdrive 约 2h / tdocs 约 30min | 拿到 URL 后立刻传，中间不插耗时操作 |
 | `dir_list` 的 name 没有扩展名 | 接口特性 | 用 `ext` 字段区分同名 html/json |
+| `dir_list` 的 `size` 是缓存值 | 覆盖上传后立刻列表，`size`/`modify_time` 可能仍是旧的（实测 AGENTS.md 覆盖后仍显示 12941，实际 15056） | **不要拿 dir_list 的 size 当校验依据**，一律用 `file_download` 回读后比对字节数或 md5 |
 | 网盘出现「(1)」重复文件 | 同名冲突 | 上传前先列目录删同名；出现后删旧留新 |
 | 红房子医院（fckyy）403 / 西安中大超时 | 长期已知故障（WAF/源站） | 记 0 条并在留言注明，**不改脚本** |
 | 卫健委/药监局 412、NEJM Cloudflare | 反爬 | 无头浏览器 / RSS / 官方搜索页绕行，注明用了哪条替代通道 |
@@ -243,8 +244,14 @@ MGH 百度通道告警单独发 `zhijia@sipf.com.cn`。
 | └ _config | `XKXXGJFsMDnf` |
 | 技能包 | `XsGHJWDDNidZ` |
 
-**技能包**目录存技能分发 zip，当前 `hospital-news-digest-skill-v1.1.zip`（file_id `XMltlXuOEOMd`，120,019 字节）。
-技能本体以代码仓库为准（见下方「代码仓库」），网盘 zip 只是给没接仓库的人用的离线包。
+**技能包**目录存两类东西：
+
+| 文件 | file_id | 用途 |
+|---|---|---|
+| `hospital-news-digest-skill-v1.2.zip` | `XRZinVtvflmp` | 离线包，给不接仓库的人手工装（121,666 字节） |
+| `medic-bundle.bin` | `XNxHLzlLhPdl` | 整个仓库的 git bundle，可 `git clone` 后直接推送到 GitHub（138,659 字节） |
+
+技能本体以代码仓库为准（见下方「代码仓库」），网盘 zip 只是兜底。
 
 ### 代码仓库
 
@@ -304,3 +311,4 @@ MGH 百度通道告警单独发 `zhijia@sipf.com.cn`。
 |---|---|---|
 | v1.0 | 2026-11-21 | 首版：从 4 个定时任务 prompt + 45 条留言 + 网盘配置反推规则集 |
 | v1.1 | 2026-11-26 | §10 新增「技能包」网盘目录、「代码仓库」与「技能资产」两张表；§11 新增 #7 #8 |
+| v1.2 | 2026-11-26 | §7 新增「dir_list 的 size 是缓存值」坑位；§10 技能包补 file_id 与 bundle；代码仓库表补「同步」「无 cron」 |
