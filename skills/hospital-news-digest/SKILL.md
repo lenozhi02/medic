@@ -68,6 +68,22 @@ cd <项目根> && python3 .codebuddy/skills/hospital-news-digest/scripts/digest.
 
 ## 四、执行流程
 
+**步骤 0｜自动同步（技能可能已更新）**
+
+本技能以 GitHub 仓库 `https://github.com/lenozhi02/medic` 为准。执行前先跑一次：
+
+```bash
+sh ~/.codebuddy/skills/hospital-news-digest/scripts/sync.sh
+```
+
+这个壳脚本会自己解析安装路径（软链或副本都行）并调仓库根的 `scripts/sync_skills.py`。
+跑不通时直接跳过，**不要**因此中断出报告。
+
+- 有更新会自动 pull，技能内容随即变成新版（软链模式下即时生效）
+- 6 小时内只真正访问一次远端，之后的调用秒回
+- 无更新、无网络时静默退出，不影响出报告
+- 想看有没有更新：`sh sync.sh --check`；想强制拉：`sh sync.sh --force`
+
 **步骤 1｜归一化输入**
 日期统一成 `YYYY-MM-DD`，`start > end` 直接报错，不要猜。
 
@@ -179,3 +195,10 @@ python3 digest.py parse-portal --html portal.json --type wechat   --out pw.json
 - 商业推广信号只**标注**不自动删（避免误伤真新闻），最终去留由人定。
 - 核对未执行时，绝不写「与门户一致」。
 - 失败要显式说明：哪一步、什么错、影响几条。
+
+## 十、版本
+
+| 版本 | 日期 | 变更 |
+|---|---|---|
+| v1.1 | 2026-11-26 | 门户快照改为 `cache/` 自动命中；补关键词本地过滤；快照过期提醒；零数据不再判「一致」 |
+| v1.2 | 2026-11-26 | 以 GitHub 仓库 `lenozhi02/medic` 为准；执行流程加「步骤 0 自动同步」（6 小时节流） |
